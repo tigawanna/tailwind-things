@@ -1,0 +1,61 @@
+{
+  "name": "tailwind-things",
+  "description": "A bunch of cool tailwind components",
+  "private": false,
+  "version": "1.0.3",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.cts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./styles.css": "./dist/index.css"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rajeshdavidbabu/shadcn-ui-lib-starter.git"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "build:tailwind": "pnpm tailwindcss -i ./src/styles.css  -o ./dist/styles.css",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
+    "prbuild": "npm run build:tailwind",
+    "postbuild": "npm run check-exports"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.221.0",
+    "tailwind-merge": "^1.12.0"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.17.0",
+    "@changesets/cli": "^2.27.1",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "autoprefixer": "^10.4.14",
+    "daisyui": "4.0.0",
+    "postcss": "^8.4.23",
+    "postcss-cli": "^10.1.0",
+    "prop-types": "^15.8.1",
+    "tailwindcss": "^3.3.2",
+    "tsup": "^8.4.0",
+    "typescript": "^5.0.2"
+  }
+}
