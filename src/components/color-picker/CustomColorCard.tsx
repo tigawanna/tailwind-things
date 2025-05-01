@@ -14,12 +14,12 @@ export function ThemeColorCard({
   hslString,
 }: ThemeColorCardProps) {
   const { bg, content } = getTailwindBg(name as any);
-  console.log("== bg == ", bg);
-  console.log("== content == ", content);
+
   return (
     <div
       className={twMerge(
-        "relative flex h-full w-full rounded-xl cursor-pointer flex-wrap items-center justify-center gap-1  "
+        "relative flex h-full  rounded-xl cursor-pointer flex-wrap items-center justify-center gap-1",
+        // "w-full sm:w-[45%] md:w-[25%]",
         // className,
       )}>
       <ColorPickerModal

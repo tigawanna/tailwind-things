@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { listAllCssVariables } from "../../lib/css-variables.js";
+import { listAllCssVariables } from "../../utils/css-variables.js";
 import { CssVariableCard } from "./CssVariableCard.js";
 import { ThemeColorCard } from "../color-picker/CustomColorCard.js";
 import { hslToOklch, oklchToHSL } from "../../utils/color-converters.js";
@@ -22,10 +22,10 @@ export function CssVariablesList({
   const filteredCssVariables = cssVariables.filter((variable) =>
     filter ? filter(variable) : colorsOnly ? variable[0].startsWith("--color") : true
   );
-
+console.log("== filtered css variables == ", filteredCssVariables);
   return (
-    <div className="w-full h-full flex flex-col bg-base-300 items-center justify-center">
-      <div className="flex w-full flex-wrap gap-4 px-4">
+    <div className="w-full flex flex-col bg-base-300 items-center justify-center @container">
+      <div className="w-full flex-wrap gap-4 px-4 grid grid-cols-1 @sm:grid-cols-2 @md:grid-cols-3 @lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
         {filteredCssVariables.map((variable, index) => {
           // Check if the variable name starts with "--"
           if (!variable[0] || !variable[1]) {
