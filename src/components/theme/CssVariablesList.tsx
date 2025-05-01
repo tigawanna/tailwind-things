@@ -26,7 +26,6 @@ export function CssVariablesList({
       ? variable[0].startsWith("--color")
       : true
   );
-  // console.log("cssVariables === ", cssVariables);
   return (
     <div className="w-full h-full flex flex-col bg-base-300 items-center justify-center">
       <div className="flex w-full flex-wrap gap-4 px-4">
