@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+
 import { Geist, Geist_Mono } from "next/font/google";
-import "tailwind-things/styles.css";
 import "./globals.css";
+import "tailwind-things/styles.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -23,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="valentine">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
