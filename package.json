@@ -12,7 +12,7 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-"./*.css": "./dist/*.css"
+    "./*.css": "./dist/*.css"
   },
   "sideEffects": false,
   "files": [
@@ -39,15 +39,18 @@
     "react-dom": "^18.2.0 || ^19.0.0"
   },
   "dependencies": {
+    "chroma-js": "^3.1.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.221.0",
+    "react-colorful": "^5.6.1",
     "tailwind-merge": "^1.12.0"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.0",
     "@changesets/cli": "^2.27.1",
     "@tailwindcss/postcss": "^4.1.5",
+    "@types/chroma-js": "^3.1.1",
     "@types/react": "^18.0.28 || ^19.0.0",
     "@types/react-dom": "^18.0.11 || ^19.0.0",
     "daisyui": "5.0.32",

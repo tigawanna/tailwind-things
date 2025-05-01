@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { listAllCssVariables } from "../../lib/css-variables.js";
 import { CssVariableCard } from "./CssVariableCard.js";
+import { ThemeColorCard } from "../color-picker/CustomColorCard.js";
+import { hslToOklch, oklchToHSL } from "../../utils/color-converters.js";
 
 interface CssVariablesListProps {
   colorsOnly?: boolean;
   filter?: (variable: [string, string]) => boolean;
   onClick?: (name: string, value: string) => void;
 }
-
-
 
 export function CssVariablesList({
   filter,
@@ -20,12 +20,9 @@ export function CssVariablesList({
     setCssVariables(listAllCssVariables());
   }, []);
   const filteredCssVariables = cssVariables.filter((variable) =>
-    filter
-      ? filter(variable)
-      : colorsOnly
-      ? variable[0].startsWith("--color")
-      : true
+    filter ? filter(variable) : colorsOnly ? variable[0].startsWith("--color") : true
   );
+
   return (
     <div className="w-full h-full flex flex-col bg-base-300 items-center justify-center">
       <div className="flex w-full flex-wrap gap-4 px-4">
@@ -38,13 +35,18 @@ export function CssVariablesList({
           if (!variable[0].startsWith("--")) {
             return null;
           }
+            const colorName = variable[0].replace(/--color-/, "");
           return (
-            <CssVariableCard
+            <ThemeColorCard
               key={index}
-              variableName={variable?.[0]}
-              variableValue={variable?.[1]}
-              onEdit={() => {}}
-              onDelete={() => {}}
+              handleThemeChange={(color) => {
+                const oklch = hslToOklch(color);
+                const kolchstring = `oklch(${oklch.oklch_string})`;
+                console.log("== color changed stoo  == ", kolchstring);
+                document.documentElement.style.setProperty(variable[0], kolchstring);
+              }}
+              name={colorName}
+              hslString={oklchToHSL(variable[1]).hsl_string}
             />
           );
         })}

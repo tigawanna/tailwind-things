@@ -6,3 +6,7 @@
 @plugin "daisyui" {
   themes: false;
 }
+
+.react-colorful {
+  width: auto;
+}
