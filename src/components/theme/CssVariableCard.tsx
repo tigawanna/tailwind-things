@@ -9,15 +9,15 @@ export interface CssVariableCardProps {
 
 export function CssVariableCard({onDelete,onEdit,variableName,variableValue}: CssVariableCardProps): React.JSX.Element {
 return (
-  <div className="shadow rounded-2xl max-w-full overflow-auto flex-grow p-4 w-fit bg-base-200 flex flex-col items-center justify-center">
+  <div className="shadow rounded-2xl max-w-[90%] border  flex-grow  min-w-[20%] w-fit bg-base-200 flex  justify-start">
+    <div className=" flex flex-col gap-1  justify-between  p-2 w-full ">
     <span className="text-sm">{variableName}</span>
-    <div className=" flex flex-col items-center justify-between">
-      <div
-        className="w-6 h-6 rounded-full shadow `shadow-lg border border-base-300"
-        style={{ backgroundColor: variableValue }}
-      />
-      <span>{variableValue}</span>
+    <span className="">{variableValue}</span>
     </div>
+      <div
+        className="h-full min-w-[20%] shadow rounded-xl border border-primary hover:brightness-125"
+        style={{ backgroundColor: variableValue }}
+        />
   </div>
 );
 }
