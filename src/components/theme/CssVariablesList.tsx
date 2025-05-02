@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { listAllCssVariables } from "../../utils/css-variables.js";
-import { CssVariableCard } from "./CssVariableCard.js";
+import React, { useContext } from "react";
 import { ThemeColorCard } from "../color-picker/CustomColorCard.js";
 import { hslToOklch, oklchToHSL } from "../../utils/color-converters.js";
+import { ThemeContext } from "../../context/theme-context.js";
+import { useDebounced } from "../../hooks/useDebounced.js";
 
 interface CssVariablesListProps {
   colorsOnly?: boolean;
@@ -15,16 +15,32 @@ export function CssVariablesList({
   onClick,
   colorsOnly = true,
 }: CssVariablesListProps): React.JSX.Element {
-  const [cssVariables, setCssVariables] = useState<[string, string][]>([]);
-  useEffect(() => {
-    setCssVariables(listAllCssVariables());
-  }, []);
+  const { themes: cssVariables, setThemes } = useContext(ThemeContext);
+
   const filteredCssVariables = cssVariables.filter((variable) =>
     filter ? filter(variable) : colorsOnly ? variable[0].startsWith("--color") : true
   );
 
+  const updateTheme = (varName: string, value: string) => {
+    try {
+      setThemes((prev) => {
+        return prev.map((v) => {
+          if (v[0] === varName) {
+            return [v[0], value];
+          }
+          return v;
+        });
+      });
+    } catch (error) {
+      console.log("error updating context === ", error);
+    }
+  };
+
+  // Create a debounced version of updateTheme with 5 seconds delay
+  const debouncedUpdateTheme = useDebounced(updateTheme, 5000);
+
   return (
-    <div className="w-full flex flex-col  items-center justify-center @container">
+    <div className="w-full flex flex-col items-center justify-center @container">
       <div className="w-full flex-wrap gap-4 px-4 grid grid-cols-1 @sm:grid-cols-2 @md:grid-cols-3 @lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
         {filteredCssVariables.map((variable, index) => {
           // Check if the variable name starts with "--"
@@ -35,7 +51,7 @@ export function CssVariablesList({
           if (!variable[0].startsWith("--")) {
             return null;
           }
-            const colorName = variable[0].replace(/--color-/, "");
+          const colorName = variable[0].replace(/--color-/, "");
           return (
             <ThemeColorCard
               key={index}
@@ -44,6 +60,7 @@ export function CssVariablesList({
                 const oklch = hslToOklch(color);
                 const kolchstring = `oklch(${oklch.oklch_string})`;
                 document.documentElement.style.setProperty(variable[0], kolchstring);
+                debouncedUpdateTheme(variable[0], kolchstring);
               }}
               name={colorName}
               hslString={oklchToHSL(variable[1]).hsl_string}

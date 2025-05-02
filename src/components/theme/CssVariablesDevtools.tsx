@@ -1,10 +1,10 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { CssVariablesList } from "./CssVariablesList.js";
 import { Icons } from "./Icons.js";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../lib/utils.js";
-
-
+import { ThemeContext } from "../../context/theme-context.js";
+import { listAllCssVariables } from "../../utils/css-variables.js";
 
 const triggerVariants = cva("btn btn-circle fixed", {
   variants: {
@@ -13,8 +13,6 @@ const triggerVariants = cva("btn btn-circle fixed", {
       bottom: "bottom-[5%] right-[5%]",
       left: "top-[5%] left-[5%]",
       right: "top-[5%] right-[5%]",
-      
-
     },
     size: {
       sm: "btn-sm",
@@ -28,21 +26,30 @@ const triggerVariants = cva("btn btn-circle fixed", {
   },
 });
 
-interface CssVariablesModalProps {
+interface CssVariablesDevtoolsProps {
   colorsOnly?: boolean;
   filter?: (variable: [string, string]) => boolean;
   onClick?: (name: string, value: string) => void;
   trigger?: VariantProps<typeof triggerVariants>;
-  className?:string
+  className?: string;
 }
 
-export function CssVariablesModal({ colorsOnly, filter, onClick,trigger,className }: CssVariablesModalProps) {
+export function CssVariablesDevtools({
+  colorsOnly,
+  filter,
+  onClick,
+  trigger,
+  className,
+}: CssVariablesDevtoolsProps) {
   const modalId = `my_colors_modal`;
   const modalRef = useRef<HTMLDialogElement | null>(null);
+  const [cssVariables, setCssVariables] = useState<[string, string][]>(listAllCssVariables());
   useEffect(() => {
     const current_modal = document.getElementById(modalId) as HTMLDialogElement;
     modalRef.current = current_modal;
+    // setCssVariables(listAllCssVariables());
   }, []);
+  // console.log(" ===  css variables  === ", cssVariables);
 
   return (
     <>
@@ -51,14 +58,20 @@ export function CssVariablesModal({ colorsOnly, filter, onClick,trigger,classNam
         onClick={() => {
           modalRef.current?.showModal();
         }}
-        className={cn(triggerVariants({...trigger,className}))}>
+        className={cn(triggerVariants({ ...trigger, className }))}>
         <Icons.paint />
       </button>
 
       <dialog id={modalId} className="modal  w-full h-full bg-base-300">
         <div className="modal-box flex flex-col gap-3 w-full">
           <h3 className="font-bold text-lg">Css Variables</h3>
-          <CssVariablesList colorsOnly={colorsOnly} filter={filter} onClick={onClick} />
+          <ThemeContext.Provider
+            value={{
+              themes: cssVariables,
+              setThemes: setCssVariables,
+            }}>
+            <CssVariablesList colorsOnly={colorsOnly} filter={filter} onClick={onClick} />
+          </ThemeContext.Provider>
         </div>
         <form method="dialog" className="modal-backdrop">
           <button>close</button>

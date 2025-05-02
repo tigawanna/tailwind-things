@@ -1,4 +1,4 @@
-import { Button, CssVariablesModal, ExportAsDaisyui } from "tailwind-things";
+import { Button, CssVariablesDevtools } from "tailwind-things";
 // Usage
 function App() {
 
@@ -10,12 +10,12 @@ function App() {
       <Button className="" variant={"primary"}>
         My special button
       </Button>
-      <ExportAsDaisyui/>
-      <CssVariablesModal />
+      {/* <ExportAsDaisyui /> */}
+      <CssVariablesDevtools />
 
       {/* <CssVariablesList  /> */}
-      <p className="text-lg mt-4 bg-primary p-5">This is a simple React app with Tailwind CSS.</p>
-      <p className="text-sm mt-2">You can start building your app from here.</p>
+      {/* <p className="text-lg mt-4 bg-primary p-5">This is a simple React app with Tailwind CSS.</p>
+      <p className="text-sm mt-2">You can start building your app from here.</p> */}
     </div>
   );
 }
