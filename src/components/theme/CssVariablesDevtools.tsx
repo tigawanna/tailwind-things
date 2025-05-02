@@ -5,6 +5,9 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../lib/utils.js";
 import { ThemeContext } from "../../context/theme-context.js";
 import { listAllCssVariables } from "../../utils/css-variables.js";
+import { ExportAsDaisyui } from "../export/ExportAsDaisyui.js";
+import { ExportThemesDrawer } from "../export/ExportThemesDrawer.js";
+import { exportThemesDrawerId } from "../drawers/utils.js";
 
 const triggerVariants = cva("btn btn-circle fixed", {
   variants: {
@@ -47,9 +50,11 @@ export function CssVariablesDevtools({
   useEffect(() => {
     const current_modal = document.getElementById(modalId) as HTMLDialogElement;
     modalRef.current = current_modal;
-    // setCssVariables(listAllCssVariables());
   }, []);
   // console.log(" ===  css variables  === ", cssVariables);
+   const closeModal =()=>{
+    modalRef.current?.close();
+   }
 
   return (
     <>
@@ -62,20 +67,34 @@ export function CssVariablesDevtools({
         <Icons.paint />
       </button>
 
-      <dialog id={modalId} className="modal  w-full h-full bg-base-300">
-        <div className="modal-box flex flex-col gap-3 w-full">
-          <h3 className="font-bold text-lg">Css Variables</h3>
-          <ThemeContext.Provider
-            value={{
-              themes: cssVariables,
-              setThemes: setCssVariables,
-            }}>
-            <CssVariablesList colorsOnly={colorsOnly} filter={filter} onClick={onClick} />
-          </ThemeContext.Provider>
-        </div>
-        <form method="dialog" className="modal-backdrop">
-          <button>close</button>
-        </form>
+      <dialog id={modalId} className="modal w-full h-full  bg-base-300">
+        <ExportThemesDrawer>
+          <div className=" h-full flex w-full justify-center items-center">
+            <div className="modal-box max-w-[70%] flex flex-col gap-3 w-full">
+              <div className="w-full flex gap-3 justify-between">
+                <h3 className="font-bold text-xl">Css Variables</h3>
+                <div className="flex gap-3 ">
+                  <label htmlFor={exportThemesDrawerId} className="drawer-button btn btn-primary">
+                    export
+                  </label>
+                  <button onClick={closeModal} className="btn btn-error">
+                    close
+                  </button>
+                </div>
+              </div>
+              <ThemeContext.Provider
+                value={{
+                  themes: cssVariables,
+                  setThemes: setCssVariables,
+                }}>
+                <CssVariablesList colorsOnly={colorsOnly} filter={filter} onClick={onClick} />
+              </ThemeContext.Provider>
+            </div>
+            <form method="dialog" className="modal-backdrop fixed  inset-0">
+              <button>close</button>
+            </form>
+          </div>
+        </ExportThemesDrawer>
       </dialog>
     </>
   );
