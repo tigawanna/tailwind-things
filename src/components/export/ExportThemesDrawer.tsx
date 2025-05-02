@@ -6,7 +6,7 @@ interface ExportThemesDrawerProps {
   children: React.ReactNode;
 }
 const exportTabs = ["all", "daisyui", "shadcn"] as const;
-type TExportTab = (typeof exportTabs)[number];
+export type TExportTab = (typeof exportTabs)[number];
 export function ExportThemesDrawer({ children }: ExportThemesDrawerProps) {
   const [tab, setTab] = useState<TExportTab>("all");
   return (
@@ -23,7 +23,7 @@ export function ExportThemesDrawer({ children }: ExportThemesDrawerProps) {
           className="drawer-overlay"></label>
         <ul className="menu bg-base-200 z-50 text-base-content min-h-full w-[90%] lg:w-[60%] p-4">
           {/* Sidebar content here */}
-          <ul className="flex flex-wrap gap-2">
+          <ul className="flex flex-wrap gap-2 sticky top-4 z-30">
             {exportTabs.map((currTab) => {
               return (
                 <li key={currTab}>
@@ -39,10 +39,7 @@ export function ExportThemesDrawer({ children }: ExportThemesDrawerProps) {
             })}
           </ul>
           <li>
-            <ExportAsDaisyui />
-          </li>
-          <li>
-            <a>Sidebar Item 2</a>
+            <ExportAsDaisyui key={tab} tab={tab} />
           </li>
         </ul>
       </div>

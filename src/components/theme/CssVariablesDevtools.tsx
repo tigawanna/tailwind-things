@@ -51,10 +51,9 @@ export function CssVariablesDevtools({
     const current_modal = document.getElementById(modalId) as HTMLDialogElement;
     modalRef.current = current_modal;
   }, []);
-  // console.log(" ===  css variables  === ", cssVariables);
-   const closeModal =()=>{
+  const closeModal = () => {
     modalRef.current?.close();
-   }
+  };
 
   return (
     <>
@@ -68,33 +67,33 @@ export function CssVariablesDevtools({
       </button>
 
       <dialog id={modalId} className="modal w-full h-full  bg-base-300">
-        <ExportThemesDrawer>
-          <div className=" h-full flex w-full justify-center items-center">
-            <div className="modal-box max-w-[70%] flex flex-col gap-3 w-full">
-              <div className="w-full flex gap-3 justify-between">
-                <h3 className="font-bold text-xl">Css Variables</h3>
-                <div className="flex gap-3 ">
-                  <label htmlFor={exportThemesDrawerId} className="drawer-button btn btn-primary">
-                    export
-                  </label>
-                  <button onClick={closeModal} className="btn btn-error">
-                    close
-                  </button>
+        <ThemeContext.Provider
+          value={{
+            themes: cssVariables,
+            setThemes: setCssVariables,
+          }}>
+          <ExportThemesDrawer>
+            <div className=" h-full flex w-full justify-center items-center">
+              <div className="modal-box max-w-[70%] flex flex-col gap-3 w-full">
+                <div className="w-full flex gap-3 justify-between">
+                  <h3 className="font-bold text-xl">Css Variables</h3>
+                  <div className="flex gap-3 ">
+                    <label htmlFor={exportThemesDrawerId} className="drawer-button btn btn-primary btn-sm btn-outline">
+                      export
+                    </label>
+                    <button onClick={closeModal} className="btn btn-circle btn-sm text-error">
+                      <Icons.x className="stroke-error fill-error text-error"/>
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <ThemeContext.Provider
-                value={{
-                  themes: cssVariables,
-                  setThemes: setCssVariables,
-                }}>
                 <CssVariablesList colorsOnly={colorsOnly} filter={filter} onClick={onClick} />
-              </ThemeContext.Provider>
+              </div>
+              <form method="dialog" className="modal-backdrop fixed  inset-0">
+                <button>close</button>
+              </form>
             </div>
-            <form method="dialog" className="modal-backdrop fixed  inset-0">
-              <button>close</button>
-            </form>
-          </div>
-        </ExportThemesDrawer>
+          </ExportThemesDrawer>
+        </ThemeContext.Provider>
       </dialog>
     </>
   );
