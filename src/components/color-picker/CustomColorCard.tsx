@@ -4,12 +4,14 @@ import { getTailwindBg } from "../../utils/tailwind-helpers.js";
 
 interface ThemeColorCardProps {
   name: string;
+  oklchString?: string;
   handleThemeChange: (hslColor: string) => void;
   hslString: string;
 }
 
 export function ThemeColorCard({
   name,
+  oklchString,
   handleThemeChange,
   hslString,
 }: ThemeColorCardProps) {
@@ -26,6 +28,7 @@ export function ThemeColorCard({
         handleThemeChange={handleThemeChange}
         bgColor={bg}
         name={name}
+
         hslString={hslString}
         className="w-full ">
         <button
@@ -35,6 +38,7 @@ export function ThemeColorCard({
             content
           )}>
           <span className="">{name}</span>
+          <span className="text-xs">{oklchString}</span>
         </button>
       </ColorPickerModal>
       <div

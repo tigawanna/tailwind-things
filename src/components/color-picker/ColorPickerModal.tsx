@@ -7,6 +7,7 @@ import { getHueFromHSL } from "../../utils/color-converters.js";
 
 interface ColorPickerModalProps {
   name: string;
+  oklchString?:string;
   className?: string;
   children: React.ReactNode;
   bgColor: string;
@@ -16,6 +17,7 @@ interface ColorPickerModalProps {
 
 export function ColorPickerModal({
   name,
+  oklchString,
   children,
   bgColor,
   hslString,

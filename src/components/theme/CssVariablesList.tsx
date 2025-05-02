@@ -39,10 +39,10 @@ export function CssVariablesList({
           return (
             <ThemeColorCard
               key={index}
+              oklchString={variable?.[1]}
               handleThemeChange={(color) => {
                 const oklch = hslToOklch(color);
                 const kolchstring = `oklch(${oklch.oklch_string})`;
-                console.log("== color changed stoo  == ", kolchstring);
                 document.documentElement.style.setProperty(variable[0], kolchstring);
               }}
               name={colorName}

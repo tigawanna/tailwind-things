@@ -1,4 +1,4 @@
-import { Button, CssVariablesModal } from "tailwind-things";
+import { Button, CssVariablesModal, ExportAsDaisyui } from "tailwind-things";
 // Usage
 function App() {
 
@@ -10,6 +10,7 @@ function App() {
       <Button className="" variant={"primary"}>
         My special button
       </Button>
+      <ExportAsDaisyui/>
       <CssVariablesModal />
 
       {/* <CssVariablesList  /> */}
