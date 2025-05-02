@@ -22,9 +22,9 @@ export function CssVariablesList({
   const filteredCssVariables = cssVariables.filter((variable) =>
     filter ? filter(variable) : colorsOnly ? variable[0].startsWith("--color") : true
   );
-console.log("== filtered css variables == ", filteredCssVariables);
+
   return (
-    <div className="w-full flex flex-col bg-base-300 items-center justify-center @container">
+    <div className="w-full flex flex-col  items-center justify-center @container">
       <div className="w-full flex-wrap gap-4 px-4 grid grid-cols-1 @sm:grid-cols-2 @md:grid-cols-3 @lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
         {filteredCssVariables.map((variable, index) => {
           // Check if the variable name starts with "--"
