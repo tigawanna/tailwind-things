@@ -41,7 +41,7 @@ export function CssVariablesDevtools({
   onClick,
   trigger,
   className,
-}: CssVariablesDevtoolsProps) {
+}: CssVariablesDevtoolsProps): React.ReactElement | null {
   const modalId = `my_colors_modal`;
   const modalRef = useRef<HTMLDialogElement | null>(null);
   const [themeType, setThemeType] = useState<TThemeType>("all");

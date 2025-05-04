@@ -16,11 +16,11 @@ function variableFilters(tab: TExportTab, color: TCssVariable) {
     case "shadcn":
       return shadcnVariablesSet.has(color[0] as any);
     default:
-      return true
+      return true;
   }
 }
 
-export function ExportAsDaisyui({ tab }: ExportAsDaisyuiProps) {
+export function ExportAsDaisyui({ tab }: ExportAsDaisyuiProps): React.ReactElement | null {
   const [input, setInput] = useState<string>("my_custom_theme");
   const colors = useContext(ThemeContext).themes;
   const formatedColors = colors
