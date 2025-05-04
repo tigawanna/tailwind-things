@@ -90,23 +90,4 @@ export function CssVariablesList({ filter, onClick }: CssVariablesListProps): Re
   );
 }
 
-export function CssVariablesType() {
-  const { themeType, setThemeType, themetypes } = useContext(ThemeContext);
 
-  console.log(" theme type", themeType);
-  return (
-    <ul className="w-full flex gap-2 p-2">
-      {themetypes.map((th) => {
-        return (
-          <button
-            onClick={() => setThemeType(th)}
-            key={th}
-            data-active={themeType === th}
-            className="btn btn-secondary btn-outline data-[active=true]:bg-secondary data-[active=true]:text-secondary-content btn-sm">
-            {th}
-          </button>
-        );
-      })}
-    </ul>
-  );
-}

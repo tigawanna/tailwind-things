@@ -6,6 +6,8 @@ export type TThemeType = (typeof themetypes)[number];
 
 type ThemeContext = {
   themes: TCssVariable[];
+  darkMode?:boolean;
+  toggledarkMode:(isDark:boolean)=>void
   themeType: TThemeType;
   themetypes: typeof themetypes;
   setThemeType(themeType: TThemeType): void;
@@ -14,6 +16,7 @@ type ThemeContext = {
 
 export const ThemeContext = createContext<ThemeContext>({
   themes: [],
+  toggledarkMode:()=>{},
   themetypes,
   setThemeType: () => {},
   themeType: "all",

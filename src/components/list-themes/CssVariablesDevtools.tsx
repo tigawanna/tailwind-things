@@ -1,12 +1,13 @@
 import { useRef, useEffect, useState } from "react";
-import { CssVariablesList, CssVariablesType } from "./CssVariablesList.js";
-import { Icons } from "./Icons.js";
+import { CssVariablesList } from "./CssVariablesList.js";
+import { Icons } from "../others/Icons.js";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils/tailwind.js";
 import { ThemeContext, themetypes, type TThemeType } from "@/context/theme-context.js";
 import { listAllCssVariables } from "@/utils/css-variables.js";
 import { ExportThemesDrawer } from "../export-themes/ExportThemesDrawer.js";
 import { exportThemesDrawerId } from "../drawers/utils.js";
+import { ThemesListNavbar } from "../others/ThemesListNavbar.js";
 
 const triggerVariants = cva("btn btn-circle fixed", {
   variants: {
@@ -44,6 +45,7 @@ export function CssVariablesDevtools({
   const modalId = `my_colors_modal`;
   const modalRef = useRef<HTMLDialogElement | null>(null);
   const [themeType, setThemeType] = useState<TThemeType>("all");
+  const [isDark, setIsDark] = useState(false);
   const [cssVariables, setCssVariables] = useState<[string, string][]>(listAllCssVariables());
   useEffect(() => {
     const current_modal = document.getElementById(modalId) as HTMLDialogElement;
@@ -67,6 +69,8 @@ export function CssVariablesDevtools({
       <dialog id={modalId} className="modal w-full h-full  bg-base-300">
         <ThemeContext.Provider
           value={{
+            darkMode: isDark,
+            toggledarkMode: setIsDark,
             themes: cssVariables,
             themetypes,
             themeType,
@@ -77,16 +81,10 @@ export function CssVariablesDevtools({
             <div className=" h-full flex w-full justify-center items-center">
               <div className="modal-box max-w-[70%] flex flex-col gap-3 w-full">
                 <div className="w-full flex gap-3 justify-between">
-                  <h3 className="font-bold text-xl">Css Variables</h3>
-                  <div className="flex gap-3 ">
-                    <CssVariablesType/>
-                    <label htmlFor={exportThemesDrawerId} className="drawer-button btn btn-primary btn-sm btn-outline">
-                      export
-                    </label>
-                    <button onClick={closeModal} className="btn btn-circle btn-sm text-error">
-                      <Icons.x className="stroke-error fill-error text-error"/>
-                    </button>
-                  </div>
+                  <ThemesListNavbar
+                    exportThemesDrawerId={exportThemesDrawerId}
+                    modalRef={modalRef}
+                  />
                 </div>
                 <CssVariablesList filter={filter} onClick={onClick} />
               </div>
