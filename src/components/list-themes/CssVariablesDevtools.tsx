@@ -1,9 +1,9 @@
 import { useRef, useEffect, useState } from "react";
-import { CssVariablesList } from "./CssVariablesList.js";
+import { CssVariablesList, CssVariablesType } from "./CssVariablesList.js";
 import { Icons } from "./Icons.js";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils/tailwind.js";
-import { ThemeContext } from "@/context/theme-context.js";
+import { ThemeContext, themetypes, type TThemeType } from "@/context/theme-context.js";
 import { listAllCssVariables } from "@/utils/css-variables.js";
 import { ExportThemesDrawer } from "../export-themes/ExportThemesDrawer.js";
 import { exportThemesDrawerId } from "../drawers/utils.js";
@@ -29,7 +29,6 @@ const triggerVariants = cva("btn btn-circle fixed", {
 });
 
 interface CssVariablesDevtoolsProps {
-  colorsOnly?: boolean;
   filter?: (variable: [string, string]) => boolean;
   onClick?: (name: string, value: string) => void;
   trigger?: VariantProps<typeof triggerVariants>;
@@ -37,7 +36,6 @@ interface CssVariablesDevtoolsProps {
 }
 
 export function CssVariablesDevtools({
-  colorsOnly,
   filter,
   onClick,
   trigger,
@@ -45,6 +43,7 @@ export function CssVariablesDevtools({
 }: CssVariablesDevtoolsProps) {
   const modalId = `my_colors_modal`;
   const modalRef = useRef<HTMLDialogElement | null>(null);
+  const [themeType, setThemeType] = useState<TThemeType>("all");
   const [cssVariables, setCssVariables] = useState<[string, string][]>(listAllCssVariables());
   useEffect(() => {
     const current_modal = document.getElementById(modalId) as HTMLDialogElement;
@@ -69,6 +68,9 @@ export function CssVariablesDevtools({
         <ThemeContext.Provider
           value={{
             themes: cssVariables,
+            themetypes,
+            themeType,
+            setThemeType,
             setThemes: setCssVariables,
           }}>
           <ExportThemesDrawer>
@@ -77,6 +79,7 @@ export function CssVariablesDevtools({
                 <div className="w-full flex gap-3 justify-between">
                   <h3 className="font-bold text-xl">Css Variables</h3>
                   <div className="flex gap-3 ">
+                    <CssVariablesType/>
                     <label htmlFor={exportThemesDrawerId} className="drawer-button btn btn-primary btn-sm btn-outline">
                       export
                     </label>
@@ -85,7 +88,7 @@ export function CssVariablesDevtools({
                     </button>
                   </div>
                 </div>
-                <CssVariablesList colorsOnly={colorsOnly} filter={filter} onClick={onClick} />
+                <CssVariablesList filter={filter} onClick={onClick} />
               </div>
               <form method="dialog" className="modal-backdrop fixed  inset-0">
                 <button>close</button>

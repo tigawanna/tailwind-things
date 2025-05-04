@@ -7,6 +7,8 @@
   themes: false;
 }
 
+@plugin "tailwindcss-animate";
+
 .react-colorful {
   width: auto;
 }

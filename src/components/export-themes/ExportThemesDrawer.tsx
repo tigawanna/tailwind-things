@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { exportThemesDrawerId } from "../drawers/utils.js";
 import { ExportAsDaisyui } from "./ExportAsDaisyui.js";
+import { themetypes } from "@/context/theme-context.js";
 
 interface ExportThemesDrawerProps {
   children: React.ReactNode;
 }
-const exportTabs = ["all", "daisyui", "shadcn"] as const;
+const exportTabs = themetypes
 export type TExportTab = (typeof exportTabs)[number];
 export function ExportThemesDrawer({ children }: ExportThemesDrawerProps) {
   const [tab, setTab] = useState<TExportTab>("all");
