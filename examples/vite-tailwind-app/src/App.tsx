@@ -1,4 +1,4 @@
-import { Button, CssVariablesDevtools } from "tailwind-things";
+import { CssVariablesDevtools } from "tailwind-things";
 // Usage
 function App() {
 
@@ -7,9 +7,6 @@ function App() {
   return (
     <div className="min-h-screen gap-4 flex flex-col items-center justify-center ">
       <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <Button className="" variant={"primary"}>
-        My special button
-      </Button>
       {/* <ExportAsDaisyui /> */}
       <CssVariablesDevtools />
 

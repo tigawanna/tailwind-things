@@ -3,6 +3,7 @@ import { ThemeContext, type TCssVariable } from "../../context/theme-context.js"
 import { ClipboardButton } from "../others/ClipboardButton.js";
 import type { TExportTab } from "./ExportThemesDrawer.js";
 import { daisyui_color_variables_set } from "../../utils/daisyui-theme-types.js";
+import { shadcnVariablesSet } from "@/utils/shadcn-theme-type.js";
 
 interface ExportAsDaisyuiProps {
   tab: TExportTab;
@@ -12,6 +13,8 @@ function variableFilters(tab: TExportTab, color: TCssVariable) {
   switch (tab) {
     case "daisyui":
       return daisyui_color_variables_set.has(color[0] as any);
+    case "shadcn":
+      return shadcnVariablesSet.has(color[0] as any);
     default:
       return true
   }
