@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils/tailwind.js";
 import { ThemeContext } from "@/context/theme-context.js";
 import { listAllCssVariables } from "@/utils/css-variables.js";
-import { ExportThemesDrawer } from "../export/ExportThemesDrawer.js";
+import { ExportThemesDrawer } from "../export-themes/ExportThemesDrawer.js";
 import { exportThemesDrawerId } from "../drawers/utils.js";
 
 const triggerVariants = cva("btn btn-circle fixed", {
