@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { ThemeColorCard } from "../color-picker/CustomColorCard.js";
-import { hslToOklch, oklchToHSL } from "../../utils/color-converters.js";
-import { ThemeContext } from "../../context/theme-context.js";
-import { useDebounced } from "../../hooks/useDebounced.js";
+import { hslToOklch, oklchToHSL } from "@/utils/color-converters.js";
+import { ThemeContext } from "@/context/theme-context.js";
+import { useDebouncedCallback } from "@/hooks/useDebouncedCallback.js";
 
 interface CssVariablesListProps {
   colorsOnly?: boolean;
@@ -37,7 +37,7 @@ export function CssVariablesList({
   };
 
   // Create a debounced version of updateTheme with 5 seconds delay
-  const debouncedUpdateTheme = useDebounced(updateTheme, 5000);
+  const debouncedUpdateTheme = useDebouncedCallback(updateTheme, 5000);
 
   return (
     <div className="w-full flex flex-col items-center justify-center @container">

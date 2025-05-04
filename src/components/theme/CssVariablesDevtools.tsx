@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { CssVariablesList } from "./CssVariablesList.js";
 import { Icons } from "./Icons.js";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../../lib/utils.js";
+import { cn } from "../../utils/tailwind.js";
 import { ThemeContext } from "../../context/theme-context.js";
 import { listAllCssVariables } from "../../utils/css-variables.js";
 import { ExportAsDaisyui } from "../export/ExportAsDaisyui.js";

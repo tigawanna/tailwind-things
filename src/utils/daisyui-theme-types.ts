@@ -59,30 +59,32 @@ export const daisyui_theme_color_names = [
   "error-content",
 ] as const;
 
-export const daisyui_color_variables = {
-  "--color-primary": undefined,
-  "--color-primary-content": undefined,
-  "--color-secondary": undefined,
-  "--color-secondary-content": undefined,
-  "--color-accent": undefined,
-  "--color-accent-content": undefined,
-  "--color-neutral": undefined,
-  "--color-neutral-content": undefined,
-  "--color-base-100": undefined,
-  "--color-base-200": undefined,
-  "--color-base-300": undefined,
-  "--color-base-content": undefined,
-  "--color-info": undefined,
-  "--color-info-content": undefined,
-  "--color-success": undefined,
-  "--color-success-content": undefined,
-  "--color-warning": undefined,
-  "--color-warning-content": undefined,
-  "--color-error": undefined,
-  "--color-error-content": undefined,
-} as const;
+export const daisyui_color_variables = [
+  "--color-primary",
+  "--color-primary-content",
+  "--color-secondary",
+  "--color-secondary-content",
+  "--color-accent",
+  "--color-accent-content",
+  "--color-neutral",
+  "--color-neutral-content",
+  "--color-base-100",
+  "--color-base-200",
+  "--color-base-300",
+  "--color-base-content",
+  "--color-info",
+  "--color-info-content",
+  "--color-success",
+  "--color-success-content",
+  "--color-warning",
+  "--color-warning-content",
+  "--color-error",
+  "--color-error-content",
+ ] as const;
 
-export const daisyui_color_variables_map = new Map(Object.entries(daisyui_color_variables));
+export const daisyui_color_variables_set = new Set(daisyui_color_variables)
+
+
 
 export type DaisyUIColorVariables = typeof daisyui_color_variables;
 

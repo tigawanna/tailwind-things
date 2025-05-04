@@ -29,9 +29,9 @@
     /* AND if you're building for a library in a monorepo: */
     "declarationMap": true,
     "paths": {
-      "@/": ["./src/"]
+      "@/*": ["./src/*"]
     }
   },
   // "include": ["src", "tests", "meh"],
-  "exclude": ["node_modules", "dist", "example", "tests"]
+  "exclude": ["node_modules", "dist", "examples", "tests"]
 }

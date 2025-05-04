@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { ThemeContext, type TCssVariable } from "../../context/theme-context.js";
-import { daisyui_color_variables_map } from "../../utils/daisyui-theme-types.js";
 import { ClipboardButton } from "../others/ClipboardButton.js";
 import type { TExportTab } from "./ExportThemesDrawer.js";
+import { daisyui_color_variables_set } from "../../utils/daisyui-theme-types.js";
 
 interface ExportAsDaisyuiProps {
   tab: TExportTab;
@@ -11,7 +11,7 @@ interface ExportAsDaisyuiProps {
 function variableFilters(tab: TExportTab, color: TCssVariable) {
   switch (tab) {
     case "daisyui":
-      return daisyui_color_variables_map.has(color[0]);
+      return daisyui_color_variables_set.has(color[0] as any);
     default:
       return true
   }
