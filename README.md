@@ -1,19 +1,26 @@
-# shadcn-ui-lib-starter
-A simple starter kit to build your own shadcn-ui library using components from https://ui.shadcn.com/docs/components
+# tailwind things 
 
-### Features
-- Tree-shakeable (components you don't use won't be included in your bundle)
-- Dark mode support
-- Override library styles with your own using tailwindcss or your own css
+installation 
 
-### Wanna see how this library works ?
-
-Run the example project and play around
-
-The example project has the published npm package linked so you do not really have to do a local npm link.
-
+```sh
+ npm install tailwind-things
+ yarn tailwind-things
+ pnpm install tailwind-things
 ```
-cd examples/vite-tailwind-app
-npm install
-npm run dev
+
+
+## css variable devtools
+import the css
+```tsx
+import "tailwind-things/index.css";
 ```
+use the component
+```tsx
+import { CssVariablesDevtools } from "tailwind-things";
+```
+
+![css variable list view](https://github.com/tigawanna/tailwind-things/blob/main/docs/variables-list-view.png)
+
+![css variable edit view](https://github.com/tigawanna/tailwind-things/blob/main/docs/variable-edit-view.png)
+
+

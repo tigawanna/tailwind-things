@@ -46,7 +46,7 @@ export function ThemeColorCard({
             content
           )}>
           <span className="">{name}</span>
-          <span className="text-xs">{oklchString}</span>
+          {/* <span className="text-xs">{oklchString}</span> */}
         </button>
       </ColorPickerModal>
       <div
