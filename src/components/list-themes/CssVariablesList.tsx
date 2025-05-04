@@ -5,6 +5,7 @@ import { ThemeContext } from "@/context/theme-context.js";
 import { useDebouncedCallback } from "@/hooks/useDebouncedCallback.js";
 import { shadcnVariablesSet } from "@/utils/shadcn-theme-type.js";
 import { twMerge } from "tailwind-merge";
+import { daisyui_color_variables_set } from "@/utils/daisyui-theme-types.js";
 
 interface CssVariablesListProps {
   filter?: (variable: [string, string]) => boolean;
@@ -13,10 +14,12 @@ interface CssVariablesListProps {
 
 export function CssVariablesList({ filter, onClick }: CssVariablesListProps): React.JSX.Element {
   const { themes: cssVariables, setThemes, themeType } = useContext(ThemeContext);
+ 
+//  console.log("=== cssVariables ==> ", cssVariables);
   const defalutColorFilters = (variable: [string, string]) => {
     switch (themeType) {
       case "daisyui":
-        return variable[0].startsWith("--color");
+        return daisyui_color_variables_set.has(variable[0] as any);
       case "shadcn":
         return shadcnVariablesSet.has(variable[0] as any);
       default:
@@ -43,13 +46,14 @@ export function CssVariablesList({ filter, onClick }: CssVariablesListProps): Re
   };
 
   // Create a debounced version of updateTheme with 5 seconds delay
-  const debouncedUpdateTheme = useDebouncedCallback(updateTheme, 5000);
+  const debouncedUpdateTheme = useDebouncedCallback(updateTheme, 1000);
   // console.log(" theme type", themeType)
   return (
-    <div className="w-full flex flex-col items-center justify-center @container">
+    <div key={themeType} className="w-full flex flex-col items-center justify-center @container">
       <div
         className={twMerge(
           "w-full overflow-auto max-h-[90vh]  flex-wrap gap-4 px-4",
+          "animate-in slide-in-from-right-70 duration-500",
           "grid grid-cols-1 @sm:grid-cols-2 @md:grid-cols-3 @lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7"
         )}>
         {filteredCssVariables.map((variable, index) => {
@@ -62,6 +66,7 @@ export function CssVariablesList({ filter, onClick }: CssVariablesListProps): Re
             return null;
           }
           const colorName = variable[0].replace(/--color-/, "");
+          // console.log({variable,colorName})
           return (
             <ThemeColorCard
               key={index}
@@ -71,7 +76,9 @@ export function CssVariablesList({ filter, onClick }: CssVariablesListProps): Re
                 const kolchstring = `oklch(${oklch.oklch_string})`;
                 document.documentElement.style.setProperty(variable[0], kolchstring);
                 onClick?.(variable[0], kolchstring);
+                // console.log("updating color  === ", variable[0], kolchstring);
                 debouncedUpdateTheme(variable[0], kolchstring);
+                // updateTheme(variable[0], kolchstring);
               }}
               name={colorName}
               hslString={oklchToHSL(variable[1]).hsl_string}

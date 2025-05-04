@@ -1,13 +1,12 @@
 import { twMerge } from "tailwind-merge";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { HslStringColorPicker } from "react-colorful";
 import { ColorSwatches, OneColorSwatch } from "./CustomColorSwatch.js";
 import { getHueFromHSL } from "../../utils/color-converters.js";
 
-
 interface ColorPickerModalProps {
   name: string;
-  oklchString?:string;
+  oklchString?: string;
   className?: string;
   children: React.ReactNode;
   bgColor: string;
@@ -25,10 +24,6 @@ export function ColorPickerModal({
   handleThemeChange,
 }: ColorPickerModalProps) {
   // const { hsl_string } = oklchToHSL(currentTheme?.value);
-  const handleThemeChangeCallback = useCallback((color: string) => {
-    // theme gets sent in hsl and will be converted to oklch before saving
-    handleThemeChange(color);
-  }, []);
   // to handle the daiyui dialog
   const modalRef = useRef<HTMLDialogElement | null>(null);
   useEffect(() => {
@@ -37,6 +32,13 @@ export function ColorPickerModal({
     ) as HTMLDialogElement;
     modalRef.current = current_modal;
   }, [name]);
+  const [hslStringState, setHslStringState] = useState(hslString);
+  const handleThemeChangeCallback = useCallback((color: string) => {
+    // theme gets sent in hsl and will be converted to oklch before saving
+    // console.log("updating color  === ",color)
+    setHslStringState(color);
+    handleThemeChange(color);
+  }, []);
   // const hue = chroma(hsl_string).hsv()[0];
   return (
     <div className={twMerge("w-full items-center", className)}>
@@ -52,32 +54,31 @@ export function ColorPickerModal({
       <dialog id={`my_color_picker_modal-${name}`} className="modal w-full">
         <div
           className={twMerge(
-            "modal-box min-w-fit flex rounded-lg justify-center items-center",
+            "modal-box min-w-fit  flex rounded-lg justify-center items-center",
             bgColor
           )}>
-          <div className="flex flex-col gap-3 w-full">
-            <div className="flex gap-px w-full">
-              <div className="w-full">
-                <HslStringColorPicker
-                  color={hslString}
-                  onChange={(color) => {
-                    // theme gets sent in hsl and will be converted to oklch before saving
-                    handleThemeChangeCallback(color);
-                  }}
-                />
-              </div>
-              <div className="flex gap-px w-full">
-                <ColorSwatches
-                  onColorChange={(color) => {
-                    // theme gets sent in hsl and will be converted to oklch before saving
-                    handleThemeChangeCallback(color.hsl_string);
-                  }}
-                />
-              </div>
+          <div className="flex flex-col gap-2 w-full">
+            <div className="w-full flex flex-col gap-2">
+              <HslStringColorPicker
+                style={{ width: "100%" }}
+                color={hslStringState}
+                onChange={(color) => {
+                  // theme gets sent in hsl and will be converted to oklch before saving
+                  handleThemeChangeCallback(color);
+                }}
+              />
+              <ColorSwatches
+                key={hslStringState}
+                onColorChange={(color) => {
+                  // theme gets sent in hsl and will be converted to oklch before saving
+                  handleThemeChangeCallback(color.hsl_string);
+                }}
+              />
             </div>
 
             <OneColorSwatch
-              hue={getHueFromHSL(hslString)}
+              key={hslStringState}
+              hue={getHueFromHSL(hslStringState)}
               shades={[10, 30, 50, 70, 80]}
               onColorChange={(color) => handleThemeChangeCallback(color.hsl_string)}
             />

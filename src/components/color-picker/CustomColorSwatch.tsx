@@ -53,7 +53,7 @@ export function OneColorSwatch({
       {shades.map((lightness, index) => {
         const color = `hsl(${hue}, 100%, ${lightness}%)`;
         return (
-          <div key={`${hue}-${lightness}`} className="flex-1">
+          <div key={`${hue}-${lightness}-${color}`} className="flex-1">
             <ColorSwatch
               big={vertical}
               color={color}
@@ -98,7 +98,7 @@ export interface ColorSwatchesProps {
   onColorChange?: (color: ColorValue) => void;
 }
 
-const defaultColors = ["Red", "Yellow", "Green", "Purple"] as const;
+const defaultColors = ["Red", "Yellow", "Green", "Purple","Orange","Cyan","Violet","Magenta","Olive"] as const;
 const defaultRange = [18, 30, 50, 60, 80];
 export function ColorSwatches({ onColorChange, colors, range, big }: ColorSwatchesProps) {
   const colorRows = colors
@@ -120,7 +120,7 @@ export function ColorSwatches({ onColorChange, colors, range, big }: ColorSwatch
   const [activeShade, setActiveShade] = useState<number>(0);
 
   return (
-    <div className="w-full flex flex-wrap gap-1 justify-center">
+    <div className="w-full flex gap-1 justify-center">
       {colorRows.map((row) => (
         <div key={row.hue} className="flex  gap-1">
           <div className="flex flex-col  gap-px">

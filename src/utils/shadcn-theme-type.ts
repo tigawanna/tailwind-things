@@ -33,7 +33,7 @@ export const shadcnVariables = [
   "--sidebar-ring"
 ] as const;
 
-// Create a Set for quick lookups (useful for checking if a variable is a shadcn variable)
+// Create a Set for quick lookups
 export const shadcnVariablesSet = new Set(shadcnVariables);
 
 // Type definition for the shadcn variables
