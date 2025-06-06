@@ -1,6 +1,6 @@
 {
   "name": "tailwind-things",
-  "description": "A bunch of cool tailwind components",
+  "description": "A collection of Tailwind CSS utilities and components for managing CSS variables, themes, and colors with support for shadcn and daisyUI",
   "private": false,
   "version": "1.0.3",
   "type": "module",
